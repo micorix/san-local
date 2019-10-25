@@ -41,7 +41,7 @@ const LayoutWrapper = styled.div`
   aside{
     background:#CD3333;
     color:black;
-    width: calc(1/13 * 100%);
+    max-width: 20vw;
     top:0;
     left:0;
     height:100%;

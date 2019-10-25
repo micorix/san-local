@@ -19,7 +19,7 @@ const Jumbotron = styled.div`
   background-position:center center;
   div{
     // text-align:center;
-    margin-left:10%;
+    margin-left:20%;
   }
   h1{                                                                                             
     color:white;

@@ -24,6 +24,9 @@ const Err = styled.p`
     color:${props => props.color === 'success' ? 'green' : 'red'};
 `
 export default props => {
+    if(typeof window === 'undefined'){
+        return null
+    }
     const [placeName, setPlaceName]= useState('')
     const [placeType, setPlaceType]= useState(null)
     const [placeLat, setPlaceLat]= useState('')
