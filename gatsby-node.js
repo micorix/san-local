@@ -14,6 +14,14 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
               test: /mapbox-gl/,
               use: loaders.null(),
             },
+            {
+                test: /firebase/,
+                use: loaders.null(),
+              },
+              {
+                test: /firebase-auth/,
+                use: loaders.null(),
+              },
           ],
         },
       })
