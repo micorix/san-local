@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import { navigate, Link } from 'gatsby'
+import SEO from '../../components/seo'
 
 const Box = styled.div`
     padding-top:20vh;
@@ -51,6 +52,7 @@ export default props => {
     }
     return (
         <Layout>
+            <SEO title="Logowanie" />
             <Box>
                 <h1>Logowanie</h1>
                 <form onSubmit={handleSubmit}>

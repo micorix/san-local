@@ -8,11 +8,12 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "@emotion/styled"
+import { Link } from "gatsby"
 
 require('normalize.css')
 const LayoutWrapper = styled.div`
   *{
-    font-family: 'Open Sans';
+    font-family: 'Roboto Mono';
   }
   h1,h1,h3,h4,h5,h6{
     font-family:'Poppins';
@@ -48,6 +49,7 @@ const LayoutWrapper = styled.div`
   a{
     all:unset;
     cursor:pointer;
+    
     text-decoration:underline;
     &:hover{
       background:black;
@@ -61,12 +63,31 @@ const Brand = styled.h1`
   margin:10px 0;
   padding:0;
 `
+const Menu = styled.div`
+  a{
+    display:block;
+    color:white;
+    margin:1em 0;
+    padding: 0 10px;
+    font-size:1.4em;
+    text-align:center;
+    text-decoration:none;
+    &:hover{
+      text-decoration:underline;
+    }
+  }
+`
 const Layout = ({ children }) => {
 
   return (
     <LayoutWrapper>
       <aside>
     <Brand>S</Brand>
+    <Menu>
+      <Link to="/">O Nas</Link>
+      <Link to="/app">Aplikacja</Link>
+      <Link to="/owner">Strefa ownera</Link>
+    </Menu>
       </aside>
       <div></div>
         <main>{children}</main>

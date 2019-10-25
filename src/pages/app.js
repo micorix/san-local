@@ -9,34 +9,68 @@ import * as firebase from 'firebase'
 
 const MapWrapper = styled.div`
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
   height:100vh;
+  .map-marker{
+    i{
+      font-size:3em;
+    }
+  }
+  .marker-popup{
+    .mapboxgl-popup-close-button:hover{
+      color:black !important;
+    }
+    a{
+      display:block;
+      margin:10px 0;
+    }
+  }
 `
 
 export default class extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      spots: []
+      spots: [],
+      markers: []
     }
     this.mapContainer = React.createRef()
-    firebase.database().ref('users')
-    .on('value', snapshot => {
-      this.setState({
-        spots: Object.values(snapshot.val())
-      }, () => this.setMarkers())
-      
-    })
-    this.setMarkers = this.setMarkers.bind(this)
+   
+
   }
   setMarkers(data){
-    this.state.spots.forEach(spot => {
-      let markerEl = document.createElement('span')
-      markerEl.classList.add('map-marker')
-      let marker = new mapboxgl.Marker({
-        // element: markerEl
-      })
-  .setLngLat([spot.placeLng, spot.placeLat])
-  .addTo(this.map)
+    const map = this.map
+    this.state.markers.forEach(marker => marker.remove())
+    this.setState({
+      markers: this.state.spots.map(spot => {
+        if(!spot || !spot.placeName){
+          return {
+            remove: () => null
+          }
+        }
+        let markerEl = document.createElement('span')
+        markerEl.innerHTML = `<span><i class="material-icons">
+        ${spot.placeType === 'food' ? 'fastfood' : 'local_cafe'}
+        </i></span>`
+        markerEl.classList.add('map-marker')
+        let popup = new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(`
+            <div class="marker-popup">
+            <h4>${spot.placeName}</h4>
+            ${spot.placeGoogleMapsURI ? `<a href="${spot.placeGoogleMapsURI}" target="_blank">Wskazówki dojazdu</a>` : ''}
+            ${spot.placeWebsiteURI ? `<a href="${spot.placeWebsiteURI}" target="_blank">Strona internetowa</a>` : ''}
+            ${(!spot.placeGoogleMapsURI || !spot.placeWebsiteURI) ? `No data available :(` : ''}
+            </div>
+        `)
+        
+        return new mapboxgl.Marker({
+          element: markerEl
+        })
+    .setLngLat([spot.placeLng, spot.placeLat])
+    .setPopup(popup)
+    .addTo(map)
+    })
     })
   }
   componentDidMount() {
@@ -48,6 +82,13 @@ export default class extends React.Component {
       center: [21.017532, 52.237049]
     })
     this.map.addControl(new mapboxgl.NavigationControl())
+    firebase.database().ref('users')
+    .on('value', snapshot => {
+      this.setState({
+        spots: Object.values(snapshot.val())
+      }, () => this.setMarkers.call(this))
+      
+    })
   }
 
   componentWillUnmount() {
@@ -57,6 +98,7 @@ export default class extends React.Component {
   render() {
     return (
       <Layout>
+        <SEO title="Aplikacja" />
         <MapWrapper ref={el => this.mapContainer = el} />
       </Layout>
     )

@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import { navigate, Link } from 'gatsby'
+import SEO from '../../components/seo'
 
 const Box = styled.div`
     padding-top:20vh;
@@ -27,7 +28,8 @@ export default props => {
     const [placeType, setPlaceType]= useState(null)
     const [placeLat, setPlaceLat]= useState('')
     const [placeLng, setPlaceLng]= useState('')
-    const [placeDiscount, setPlaceDiscount]= useState(0)
+    const [placeGoogleMapsURI, setPlaceGoogleMapsURI]= useState('')
+    const [placeWebsiteURI, setPlaceWebsiteURI]= useState('')
     const [message, setMessage] = useState(null)
     if(!firebase.auth().currentUser){
 
@@ -43,9 +45,13 @@ export default props => {
            setPlaceType((snapshot.val() && snapshot.val().placeType) || null)
            setPlaceLat((snapshot.val() && snapshot.val().placeLat) || '')
            setPlaceLng((snapshot.val() && snapshot.val().placeLng) || '')
-           setPlaceDiscount((snapshot.val() && snapshot.val().placeDiscount) || 0)
           })
     }, [])
+    const signOut = () => {
+        firebase.auth().signOut().then(function() {
+           navigate('/')
+          })
+    }
     const handleSubmit = e => {
         e.preventDefault()
         setMessage(null)
@@ -54,7 +60,8 @@ export default props => {
             placeType,
             placeLng,
             placeLat,
-            placeDiscount
+            placeWebsiteURI,
+            placeGoogleMapsURI
           })
         .then((result) => {
            
@@ -73,6 +80,7 @@ export default props => {
     }
     return (
         <Layout>
+            <SEO title="Moje miejsce" />
             <Box>
                 <h1>Moje miejsce</h1>
                 <form onSubmit={handleSubmit}>
@@ -85,9 +93,10 @@ export default props => {
                     </select>
                     <input placeholder="Długość geograficzna" type="number" value={placeLng} onChange={e => setPlaceLng(e.target.value)} />
                     <input placeholder="Szerokość geograficzna" type="number" value={placeLat} onChange={e => setPlaceLat(e.target.value)} />
-                    <input placeholder="Znizka dla uczniów / studentów w %" value={placeDiscount} onChange={e => setPlaceDiscount(e.target.value)} />
-                    <button type="submit">Zapisz</button>
-                    <a href="#">Wyloguj się</a>
+                    <input placeholder="Adres miejsca w Mapach Google (z https)" value={placeGoogleMapsURI} onChange={e => setPlaceGoogleMapsURI(e.target.value)} />
+                    <input placeholder="Strona internetowa (z http/https)" value={placeWebsiteURI} onChange={e => setPlaceWebsiteURI(e.target.value)} />
+                   <button type="submit">Zapisz</button>
+                    <a href="#" onClick={signOut}>Wyloguj się</a>
                 </form>
             </Box>
         </Layout>
