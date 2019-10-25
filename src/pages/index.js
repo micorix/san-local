@@ -28,13 +28,18 @@ const Jumbotron = styled.div`
   }
   h2{
     color:rgba(255,255,255,0.9);
+    margin-bottom:2em;
   }                                         
   a{
     background:black;
     color:white;
     padding:10px;
     font-size:1.5em;
-    marg                                          
+                                    
+  }
+  img{
+    max-width:90vw;
+    height:20vh;
   }
 `
 const AboutUs = styled.section`
@@ -53,6 +58,9 @@ p{
 h1{
   letter-spacing:.8em;
   margin-bottom:2em;
+  &:first-letter{
+    color:#CD3333;
+  }
 }
 `
 const Button = styled(Link)`
@@ -62,8 +70,9 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <Jumbotron>
+    
       <div>
-        <h1>San local</h1>
+        <img src={require('../images/sanlocal.svg')} />
         <h2>Exploruj lokalną gastronomię</h2>
       <Button to="/app">Sprawdź, jak to działa</Button>
       </div>

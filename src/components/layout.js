@@ -39,7 +39,8 @@ const LayoutWrapper = styled.div`
   grid-template-columns:1fr 12fr;
 
   aside{
-    background:black;
+    background:#CD3333;
+    color:black;
     width: calc(1/13 * 100%);
     top:0;
     left:0;
@@ -66,7 +67,7 @@ const Brand = styled.h1`
 const Menu = styled.div`
   a{
     display:block;
-    color:white;
+    color:inherit;
     margin:1em 0;
     padding: 0 10px;
     font-size:1.4em;

@@ -13,13 +13,16 @@ const MapWrapper = styled.div`
 
   height:100vh;
   .map-marker{
-    i{
-      font-size:3em;
+    img{
+      width:3em;
     }
   }
   .marker-popup{
     .mapboxgl-popup-close-button:hover{
       color:black !important;
+    }
+    h3{
+      color:#CD3333;
     }
     a{
       display:block;
@@ -50,9 +53,9 @@ export default class extends React.Component {
           }
         }
         let markerEl = document.createElement('span')
-        markerEl.innerHTML = `<span><i class="material-icons">
-        ${spot.placeType === 'food' ? 'fastfood' : 'local_cafe'}
-        </i></span>`
+        markerEl.innerHTML = `<span>
+        ${spot.placeType === 'food' ? `<img src="${require('../images/hamburger.svg')}" />` : `<img src="${require('../images/kawa.svg')}" />`}
+       </span>`
         markerEl.classList.add('map-marker')
         let popup = new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML(`

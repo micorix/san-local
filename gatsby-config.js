@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `San Local`,
-    description: `iWyszukiwarka lokalnych biznesów gastronomicznych.`,
+    description: `Wyszukiwarka lokalnych biznesów gastronomicznych.`,
     author: `micorix`,
   },
   plugins: [
