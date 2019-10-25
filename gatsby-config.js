@@ -15,7 +15,18 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: "San Local",
+        short_name: "SanLocal",
+        start_url: "/",
+        background_color: "#CD3333",
+        theme_color: "#CD3333",
+        display: "standalone",
+        icon: "src/images/hamburger.svg"
+      },
+    },
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {

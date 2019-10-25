@@ -1,24 +1,20 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
-import coffeeImage from '../images/coffee.jpg'
+import Img from 'gatsby-image'
 import styled from '@emotion/styled'
 
 
 const Jumbotron = styled.div`
   height:90vh;
   display:flex;
-  // justify-content:center;
   align-items:center;
-  background: url(${coffeeImage}) no-repeat;
+  position:relative;
   clip-path: polygon(0 0,100% 0,100% 100%,0 90%);
-  background-size: cover;
-  background-position:center center;
+  background: rgba(0,0,0,0.08);
   div{
-    // text-align:center;
     margin-left:20%;
   }
   h1{                                                                                             
@@ -27,7 +23,7 @@ const Jumbotron = styled.div`
     font-weight:bold;
   }
   h2{
-    color:rgba(255,255,255,0.9);
+    color:rgba(0,0,0,0.5);
     margin-bottom:2em;
   }                                         
   a{
@@ -37,10 +33,11 @@ const Jumbotron = styled.div`
     font-size:1.5em;
                                     
   }
-  img{
+  .logo{
     max-width:90vw;
     height:20vh;
   }
+
 `
 const AboutUs = styled.section`
   background:white;
@@ -66,13 +63,14 @@ h1{
 const Button = styled(Link)`
 
 `
-const IndexPage = () => (
+const IndexPage = () => {
+  return (
   <Layout>
     <SEO title="Home" />
     <Jumbotron>
-    
+
       <div>
-        <img src={require('../images/sanlocal.svg')} />
+        <img src={require('../images/sanlocal.svg')} className="logo" />
         <h2>Exploruj lokalną gastronomię</h2>
       <Button to="/app">Sprawdź, jak to działa</Button>
       </div>
@@ -112,6 +110,7 @@ formularza kontaktowego.
     </Container>
     </AboutUs>
   </Layout>
-)
+)}
 
 export default IndexPage
+

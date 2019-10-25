@@ -46,6 +46,7 @@ const LayoutWrapper = styled.div`
     left:0;
     height:100%;
     position:fixed;
+    z-index:99;
   }
   a{
     all:unset;
@@ -58,11 +59,14 @@ const LayoutWrapper = styled.div`
     }
   }
 `
-const Brand = styled.h1`
+const Brand = styled.div`
   color:white;
   text-align:center;
-  margin:10px 0;
+  margin:2em 0;
   padding:0;
+  img{
+    width:4em;
+  }
 `
 const Menu = styled.div`
   a{
@@ -83,7 +87,9 @@ const Layout = ({ children }) => {
   return (
     <LayoutWrapper>
       <aside>
-    <Brand>S</Brand>
+    <Brand>
+      <img src={require('../images/hamburger.svg')} />
+    </Brand>
     <Menu>
       <Link to="/">O Nas</Link>
       <Link to="/app">Aplikacja</Link>
